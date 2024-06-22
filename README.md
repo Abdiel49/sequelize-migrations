@@ -1,8 +1,13 @@
-# API con NodeJS y ExpressJS
+# Migrations in Sequelize with .env file on NodeJS-ExpressJS API
 
 A simple example of how to use Node and ExpressJS for make a API client.
 
 ## Running project
+
+Before running the project you will need to have following dependencies:
+- Node
+- Docker & Docker compose (or Docker Desktop)
+- Git
 
 Clone this repository, and run the following command:
 
@@ -37,36 +42,10 @@ $ npm run start:dev
 - [ExpressJS](https://expressjs.com/es/)
 - [NodeJS](https://nodejs.org/en)
 
-## Disclaimer
-This software is provided "as-is" without express support and is not subject to any license restrictions and any limitations under the License Agreement provided by the author, is only for teach about Backend development for SCESI members and applicants/candidates
-
 ## Migrations Sequelize 
 
 Doc: [Sequelixe migrations](https://sequelize.org/docs/v7/cli/#creating-the-first-model-and-migration)
 
-Install Sequelice_cli
+## Install & customize Sequelice CLI for Migrations
 
-```bash
-# using npm
-npm install --save-dev sequelize-cli
-# using yarn
-yarn add sequelize-cli --dev
-```
-
-Configurar Sequelize
-
-```bash
-# using npm
-npx sequelize-cli init
-# using yarn
-yarn sequelize-cli init
-```
-
-Generar las migracions:
-
-```bash
-npx sequelice-cli migration:create --name create-users
-# npx sequelice-cli migration:create --name create-others
-```
-
-Actualicar los metodos `up` y `down` de las migraciones
+🚧 This is the repository of the blog "Blog name" which you can find here: **insert link here** 🚧
