@@ -8,7 +8,7 @@ import productsRoutes from '../modules/products/products.routes';
 const router = Router();
 
 router.use('/check', healthRoutes);
-router.use('/users', usersRoutes);
+router.use('/user', usersRoutes);
 router.use('/products', productsRoutes);
 
 // defult response
