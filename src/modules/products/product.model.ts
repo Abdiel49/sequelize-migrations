@@ -62,7 +62,7 @@ Product.init(
       },
     },
     stock: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.NUMBER,
       allowNull: false,
       validate: {
         min: 0,

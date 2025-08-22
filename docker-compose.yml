@@ -1,17 +1,17 @@
 # version: '3.8'
 services:
   database:
-    image: mariadb:jammy
-    container_name: mariadb
+    image: postgres:17.6
+    container_name: postgres-db
     environment:
-      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD} # mypassword
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      POSTGRES_PASSWORD: ${PGPASSWORD}
+      POSTGRES_USER: ${PGUSER}
+      POSTGRES_DB: ${PGDATABASE}
+      PGDATA: ${PGDATA}
     ports:
-      - "${DB_PORT}:3306"
+      - "${PGPORT}:${PGPORT}"
     volumes:
-      - ./database:/var/lib/mysql
+      - ./database-pg:/var/lib/postgresql/data
   
   # node-app:
   #   build: .

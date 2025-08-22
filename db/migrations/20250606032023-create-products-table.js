@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false
       },
       stock: {
-        type: Sequelize.INTEGER.UNSIGNED,
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       category: {

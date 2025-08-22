@@ -6,7 +6,7 @@ import { SERVER_PORT } from './config/env.config';
 async function connectWithRetry() {
   try {
     await sequelize.authenticate();
-    console.log('Database connected');
+    console.info('Database connected');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
     setTimeout(connectWithRetry, 5000);
@@ -19,10 +19,10 @@ async function startServer () {
     await connectWithRetry()
     // await sequelize.authenticate();
     // console.log('Database connected');
-    // await sequelize.sync(); // 
+    // await sequelize.sync();
 
     Server.listen(SERVER_PORT, () => {
-      console.log(`Server is running on port ${SERVER_PORT}`);
+      console.info(`Server is running on port ${SERVER_PORT}`);
     });
   } catch (error) {
     console.error('Error starting server', error);

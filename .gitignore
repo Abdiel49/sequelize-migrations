@@ -36,6 +36,8 @@ lerna-debug.log*
 
 # DB - local by docker
 database/*
+database-pg/*
+
 
 # enviroment
 .env*
