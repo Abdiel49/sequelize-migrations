@@ -17,6 +17,16 @@ async function getById (id: number): Promise<User | null> {
   return user;
 }
 
+async function getByEmail(email: string): Promise<User | null> {
+  
+  const user = await User.findOne({
+    where: {
+      email: email,
+    },
+  });
+  return user;
+}
+
 async function createUser (user: UserCreationAttributes): Promise<User> {
   // console.log('user service to be created', user);
   // usersData.push({...user, id: Date.now() + ''});
@@ -61,4 +71,5 @@ export default {
   createUser,
   updateUser,
   deleteUser,
+  getByEmail,
 }

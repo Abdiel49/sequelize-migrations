@@ -6,6 +6,7 @@ interface UserAttributes {
   id: number;
   name: string;
   email: string;
+  password: string;
   dateOfBirth: Date;
 }
 
@@ -16,6 +17,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   public name!: string;
   public email!: string;
   public dateOfBirth!: Date;
+  public password!: string;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -40,6 +42,13 @@ User.init(
       allowNull: false,
       validate: {
         isEmail: true,
+        notEmpty: true,
+      }
+    },
+    password: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+      validate: {
         notEmpty: true,
       }
     },
