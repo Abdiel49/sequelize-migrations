@@ -10,6 +10,7 @@ interface ProductAttributes {
   price: number;
   brand: string;
   stock: number;
+  category: string;
 }
 
 export interface ProductCreationAttributes extends Optional<ProductAttributes, 'id'> {}
@@ -23,6 +24,7 @@ class Product extends Model<ProductAttributes, ProductCreationAttributes>
   public price!: number;
   public brand!: string;
   public stock!: number;
+  public category!: string;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 }
@@ -60,12 +62,17 @@ Product.init(
       },
     },
     stock: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.NUMBER,
       allowNull: false,
       validate: {
         min: 0,
       },
     },
+    category: {
+      type: DataTypes.STRING(120),
+      allowNull: false,
+    },
+    // categoria (categoria)
   },
   {
     sequelize,
