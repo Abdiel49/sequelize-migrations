@@ -32,7 +32,7 @@ class Product extends Model<ProductAttributes, ProductCreationAttributes>
 Product.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.NUMBER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },

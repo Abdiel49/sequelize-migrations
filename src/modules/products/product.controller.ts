@@ -36,7 +36,7 @@ async function getProductById (req: Request, res: Response) {
 async function createProduct (req: Request, res: Response) {
   try {
     const rawProduct = req.body;
-    // validate product
+    const user = req.user;
   
     // save product
     const product = await ProductService.createProduct(rawProduct)

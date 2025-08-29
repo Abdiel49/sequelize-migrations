@@ -4,6 +4,7 @@ import healthRoutes from '../modules/healt/healthy.routes';
 import usersRoutes from '../modules/users/users.routes';
 import productsRoutes from '../modules/products/products.routes';
 import authRoutes from '../modules/auth/auth.routes';
+import { validateSesionUser } from '../modules/auth/jwt.service';
 
 // import server from './server.config';
 const router = Router();
