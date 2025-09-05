@@ -24,7 +24,7 @@ export const login = async (loginPayload: LoginPayload) => {
       email: user.email,
       name: user.name,
       uid: user.id.toString(),
-      role: 'user' // TODO: cambiar al rol del usuario en la BD
+      role: user.role
     }),
     name: user.name,
     email: user.email,
