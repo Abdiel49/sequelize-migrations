@@ -1,6 +1,7 @@
 // src/models/user.model.ts
 import { CreationOptional, DataTypes, Model, Optional } from 'sequelize';
 import {sequelize} from '../../config/database.config';
+export type UserRole = 'admin' | 'user' | 'guest';
 
 interface UserAttributes {
   id: number;
@@ -8,6 +9,7 @@ interface UserAttributes {
   email: string;
   password: string;
   dateOfBirth: Date;
+  role: UserRole;
 }
 
 export interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -20,6 +22,7 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   public password!: string;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
+  public role !: UserRole;
 }
 
 User.init(
@@ -56,6 +59,11 @@ User.init(
       type: DataTypes.DATE,
       allowNull: false,
     },
+    role: {
+      type: DataTypes.ENUM('admin', 'user', 'guest'),
+      allowNull: false,
+      defaultValue: 'user',
+    }
   },
   {
     sequelize,

@@ -8,7 +8,7 @@ interface LoginPayload {
 
 export const login = async (loginPayload: LoginPayload) => {
   const { email, password } = loginPayload;
-
+  console.log(email, password);
   const user = await usersService.getByEmail(email);
 
   if (!user) {
@@ -24,7 +24,7 @@ export const login = async (loginPayload: LoginPayload) => {
       email: user.email,
       name: user.name,
       uid: user.id.toString(),
-      role: 'user' // TODO: cambiar al rol del usuario en la BD
+      role: user.role // TODO: cambiar al rol del usuario en la BD
     }),
     name: user.name,
     email: user.email,
