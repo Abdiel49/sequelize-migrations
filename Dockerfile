@@ -1,4 +1,4 @@
-FROM node:20.13.1
+FROM node:22.19
 # mkdir app && cd app
 WORKDIR /app
 
@@ -8,9 +8,9 @@ RUN npm install
 
 COPY . .
 
-RUN npm install --only=dev && npm run build
+RUN npm run build
 
-EXPOSE ${NODE_PORT}
+EXPOSE 3001
 
 ENV NODE_ENV=development
 

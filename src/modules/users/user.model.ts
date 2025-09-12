@@ -4,7 +4,7 @@ import {sequelize} from '../../config/database.config';
 
 export type UserRole = 'admin' | 'user' | 'guest';
 
-interface UserAttributes {
+export interface UserAttributes {
   id: number;
   name: string;
   email: string;

@@ -1,8 +1,8 @@
 # version: '3.8'
 services:
-  database:
+  postgres-1:
     image: postgres:17.6
-    container_name: postgres-db
+    # container_name: postgres-db
     environment:
       POSTGRES_PASSWORD: ${PGPASSWORD}
       POSTGRES_USER: ${PGUSER}
@@ -13,24 +13,24 @@ services:
     volumes:
       - ./database-pg:/var/lib/postgresql/data
   
-  # node-app:
-  #   build: .
-  #   # build:
-  #   #   context: .
-  #   #   dockerfile: Dockerfile
-  #   env_file: .env
-  #   container_name: node-server
-  #   # environment:
-  #   #   - MYSQL_DATABASE=${MYSQL_DATABASE}
-  #   #   - MYSQL_USER=${MYSQL_USER}
-  #   #   - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-  #   #   - DB_PASSWORD=${DB_PASSWORD}
-  #   #   - DB_HOST=${DB_HOST}
-  #   #   - DB_PORT=${DB_PORT}
-  #   depends_on:
-  #     - database
-  #   ports:
-  #     - "${NODE_PORT}:${NODE_PORT}"
-  #   volumes:
-  #     - .:/app
-  #     - /app/node_modules
+  node-app:
+    build: .
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    env_file: .env
+    container_name: node-server
+    # environment:
+    #   - MYSQL_DATABASE=${MYSQL_DATABASE}
+    #   - MYSQL_USER=${MYSQL_USER}
+    #   - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    #   - DB_PASSWORD=${DB_PASSWORD}
+    #   - DB_HOST=${DB_HOST}
+    #   - DB_PORT=${DB_PORT}
+    depends_on:
+      - postgres-1
+    ports:
+      - "${NODE_PORT}:${NODE_PORT}"
+    volumes:
+      - .:/app
+      - /app/node_modules

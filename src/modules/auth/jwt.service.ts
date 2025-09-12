@@ -1,13 +1,16 @@
 import jwt from 'jsonwebtoken'
-import { JWT_SECRET_KEY } from '../../config/env.config';
 import { Request, Response } from 'express';
-import { IUserSesion, UserRole } from '../products/products.routes';
+
+import { UserRole } from '../products/products.routes';
+import UserServices from '../users/users.service'
+
+import { JWT_SECRET_KEY } from '../../config/env.config';
+
 
 interface IAuthToken {
   name: string;
   email: string;
-  uid: string;
-  role: UserRole;
+  sub: string;
 }
 
 export function generateAccessToken(payload: IAuthToken): string {
@@ -25,43 +28,42 @@ export function generateAccessToken(payload: IAuthToken): string {
   );
 }
 
-export const validateSesionUser = (role: UserRole,req: Request, res: Response, next: any) => {
-  // Middleware logic to validate user session
+  export const validateSesionUser = (req: Request, res: Response, next: any) => {
   const { authorization } = req.headers;
 
-  console.log('authorization:', authorization);
   if (!authorization) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
-
   // validar si el jwt es valido y no a expirado
   // "Bearer eyJhbGciOiJIUzI" => ['Bearer', 'eyJhbGciOiJIUzI']
   const token = authorization.split(' ')[1];
 
-  console.log('token:', token);
   jwt.verify(
     token,
     JWT_SECRET_KEY ?? 'asdf',
-    (err, decoded) => {
-    if (err) {
+    async (err, decoded) => {
+    if (err || !decoded) {
       console.error('Error validating JWT:', err);
       return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    console.log('User session validated:', decoded);
-    req.user = decoded as IUserSesion;
+    const user = await UserServices.getById(+(decoded.sub as string))
 
-    console.log('user session validated:', req.user);
+    if (!user) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    // req.user = decoded as IUserSesion;
+    req.user = user;
+
     next();
   });
 };
 
 export const userRoleValidation = (role: UserRole) => {
-  return (req: Request, res: Response, next: any) => {
+  return async (req: Request, res: Response, next: any) => {
     const user = req.user;
 
-    console.log('user role validation', user,  role);
-    if (!user || !user.role) {
+    if (!user) {
       return res.status(403).json({ message: 'Forbidden' });
     }
 

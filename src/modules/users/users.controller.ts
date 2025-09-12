@@ -1,5 +1,7 @@
 import e, {Request, Response} from 'express'
 import UserService from './users.service';
+import { IResponseData } from '../../types/global';
+import User from './user.model';
 
 async function getAllUsers (_req: Request, res: Response) {
   try {
@@ -41,7 +43,6 @@ async function createUser (req: Request, res: Response) {
   try {
     // estraer los datos de la request
     const bodyData = req.body;
-    console.log('bodyData', bodyData);
     // validar los datos del usuario
     const user = await UserService.createUser(bodyData);
     // responder con el usuario creado satisfied
@@ -105,10 +106,42 @@ async function deleteUser (req: Request, res: Response) {
   }
 }
 
+async function getUserProfile (req: Request, res: Response): Promise<Response<IResponseData<User>>>
+ {
+  try {
+    const userReq = req.user;
+    
+    if (!userReq) {
+      return res.status(401).send({
+        message: 'Usuario incorrecto',
+        ok: false,
+        status: 401,
+      });
+    }
+    
+    return  res.status(200).send(
+      {
+      message: 'Usuario encontrado',
+      ok: true,
+      status: 200,
+      data: userReq
+    });
+  } catch (error) {
+    console.error('Error getting users', error);
+    
+    return res.status(500).send({
+      message: 'A ocurrido un error en el servidor',
+      ok: false,
+      status: 500
+    });
+  }
+}
+
 export default {
   getAllUsers,
   getUserById,
   createUser,
   deleteUser,
   updateUser,
+  getUserProfile,
 }
