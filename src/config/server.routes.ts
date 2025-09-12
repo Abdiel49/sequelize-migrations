@@ -10,7 +10,7 @@ import { validateSesionUser } from '../modules/auth/jwt.service';
 const router = Router();
 
 router.use('/check', healthRoutes);
-router.use('/user', usersRoutes);
+router.use('/user', validateSesionUser, usersRoutes);
 router.use('/products', productsRoutes);
 router.use('/auth', authRoutes);
 

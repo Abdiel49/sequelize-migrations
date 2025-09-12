@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as AuthService from './auth.service';
+import usersService from "../users/users.service";
 
 async function login(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -20,8 +21,19 @@ async function login(req: Request, res: Response) {
 }
 
 async function register(req: Request, res: Response) {
-  // Implement registration logic here
-  res.send('Register endpoint');
+  try {
+    // estraer los datos de la request
+    const bodyData = req.body;
+    // validar los datos del usuario
+    const user = await usersService.createUser(bodyData);
+    // responder con el usuario creado satisfied
+    return res.status(201).json(user)
+  } catch (error) {
+    console.error('Error on creare user', error);
+    return res.status(500).send({
+      "message": "error on creare user"
+    })
+  }
 }
 
   // Uncomment if logout functionality is needed

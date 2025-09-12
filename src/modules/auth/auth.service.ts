@@ -19,14 +19,16 @@ export const login = async (loginPayload: LoginPayload) => {
     throw new Error("Invalid password");
   }
 
+  const token =  generateAccessToken({
+    email: user.email, // TODO: quitar esto
+    name: user.name, // TODO: quitar esto
+    sub: user.id.toString(),
+  });
+
   return {
-    token: generateAccessToken({
-      email: user.email,
-      name: user.name,
-      uid: user.id.toString(),
-      role: user.role
-    }),
+    token,
     name: user.name,
     email: user.email,
+    id: user.id,
   };
 }
