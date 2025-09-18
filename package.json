@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
-    "start": "node ./dist/index.js",
+    "start": "ts-node src/index.ts",
     "build": "tsc",
     "test": "mocha --recursive",
     "dev": "ts-node --esm src/index.ts",
