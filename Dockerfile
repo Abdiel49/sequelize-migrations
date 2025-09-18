@@ -14,4 +14,4 @@ EXPOSE 3001
 
 ENV NODE_ENV=development
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:dev"]
